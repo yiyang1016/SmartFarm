@@ -1,0 +1,106 @@
+{
+  "project_info": {
+    "project_number": "1006566804275",
+    "firebase_url": "https://bait2123-202006-06.firebaseio.com",
+    "project_id": "bait2123-202006-06",
+    "storage_bucket": "bait2123-202006-06.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006566804275:android:3f088dec3f4111ec4e4c46",
+        "android_client_info": {
+          "package_name": "com.example.iot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006566804275-4ko6mvod2524rqhdepkgau0p1qlljcbc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.iot",
+            "certificate_hash": "4af2f3c00877d751fcc2cf9fecb84855ee28fcb2"
+          }
+        },
+        {
+          "client_id": "1006566804275-pv7a6f77h25vf6ntkmfen1trc5g9a87p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGUVPiKNynz5R5gbF0S5Nq4dFIGGG0nv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006566804275-pv7a6f77h25vf6ntkmfen1trc5g9a87p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006566804275:android:2c939681cfa417744e4c46",
+        "android_client_info": {
+          "package_name": "com.example.smartcar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006566804275-pv7a6f77h25vf6ntkmfen1trc5g9a87p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGUVPiKNynz5R5gbF0S5Nq4dFIGGG0nv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006566804275-pv7a6f77h25vf6ntkmfen1trc5g9a87p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006566804275:android:fb717ab2324eb1254e4c46",
+        "android_client_info": {
+          "package_name": "com.example.smartfarm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006566804275-pv7a6f77h25vf6ntkmfen1trc5g9a87p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGUVPiKNynz5R5gbF0S5Nq4dFIGGG0nv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006566804275-pv7a6f77h25vf6ntkmfen1trc5g9a87p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

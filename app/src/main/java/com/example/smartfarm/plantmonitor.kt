@@ -87,6 +87,7 @@ class plantmonitor : AppCompatActivity() {
                 //Start read data from firebase
                 readData()
                 //verifyDistance()
+                
             }else{
                 //Stop retrieving data from firebase
                 mDatabase.removeEventListener(statelistener)

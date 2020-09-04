@@ -8,13 +8,13 @@
     tools:context=".plantmonitor">
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/swtAlertMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="352dp"
         android:layout_marginBottom="352dp"
         android:switchMinWidth="70dp"
-        android:text="Status"
+        android:text="Alert Mode"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -26,6 +26,8 @@
         android:layout_width="192dp"
         android:layout_height="0dp"
         android:layout_marginTop="110dp"
+        android:layout_marginBottom="103dp"
+        app:layout_constraintBottom_toTopOf="@+id/distance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -35,8 +37,20 @@
         android:id="@+id/distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginBottom="371dp"
         android:text="TextView"
-        tools:layout_editor_absoluteX="166dp"
-        tools:layout_editor_absoluteY="341dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <Button
+        android:id="@+id/btnAlarm"
+        android:layout_width="150dp"
+        android:layout_height="51dp"
+        android:text="Close Alarm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/swtAlertMode"
+        tools:layout_editor_absoluteX="130dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

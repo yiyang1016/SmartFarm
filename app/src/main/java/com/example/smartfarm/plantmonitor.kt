@@ -1,8 +1,10 @@
 package com.example.smartfarm
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.google.firebase.auth.FirebaseAuth
@@ -24,7 +26,6 @@ class plantmonitor : AppCompatActivity() {
     //private lateinit var mUser : User
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mDatabase: DatabaseReference
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -32,12 +33,22 @@ class plantmonitor : AppCompatActivity() {
 
         val actionBar = supportActionBar
         actionBar!!.title = "Farm Security"
-
+        mDatabase = Firebase.database.reference
         //fun currentUserPreference(): DatabaseReference =
         //    mDatabase.child("").child(mAuth.currentUser!!.)
 
 
-
+        val button = findViewById<Button>(R.id.btnAlarm)
+        button.setOnClickListener{
+            mDatabase.child("PI_06_CONTROL")
+                .child("buzzer").setValue("0")
+            mDatabase.child("PI_06_CONTROL")
+                .child("led").setValue("0")
+            mDatabase.child("PI_06_CONTROL")
+                .child("lcdtext").setValue("")
+        }
+        var detectdistance : String = ""
+        var convertDistance : Int = detectdistance.toInt()
         val currentDate: String = "PI_06_"+SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(Date())
         val currentHour : String = SimpleDateFormat("HH",Locale.getDefault()).format(Date())
         val currentMinuteSecond: String = SimpleDateFormat("mmss", Locale.getDefault()).format(Date())
@@ -49,15 +60,24 @@ class plantmonitor : AppCompatActivity() {
                 .child(currentMinuteSecond)//get hour Ex. 1010
                 .addValueEventListener(object : ValueEventListener{
                     override fun onCancelled(error: DatabaseError) {
-
                     }
-
                     override fun onDataChange(snapshot: DataSnapshot) {
                         var post = snapshot.value as Map<String,Any>
-                        distance.text = post["ultra2"].toString()
+                        detectdistance = post["ultra2"].toString()
+                        distance.text = detectdistance
                     }
                 })
         }
-        readObserveData()
+        fun verifyDistance(){
+            if(convertDistance < 30.0 ){
+                mDatabase.child("PI_06_CONTROL")
+                    .child("buzzer").setValue("1")
+                mDatabase.child("PI_06_CONTROL")
+                    .child("led").setValue("1")
+                mDatabase.child("PI_06_CONTROL")
+                    .child("lcdtext").setValue("WARNING!!!")
+            }
+        }
+        readObserveData()   
     }
 }

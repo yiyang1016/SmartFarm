@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btntemperature"
         android:layout_width="200dp"
         android:layout_height="250dp"
         android:layout_marginStart="4dp"
@@ -18,12 +18,12 @@
         android:text="Temperature"
         android:textColor="#ffffff"
         android:background="#A8292828"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintBottom_toTopOf="@+id/btnhumidity"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnwheater"
         android:layout_width="200dp"
         android:layout_height="250dp"
         android:layout_marginTop="152dp"
@@ -33,12 +33,12 @@
         android:text="Wheater"
         android:textColor="#ffffff"
         android:background="#A8292828"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
+        app:layout_constraintBottom_toTopOf="@+id/btnsecurity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnhumidity"
         android:layout_width="200dp"
         android:layout_height="250dp"
         android:layout_marginStart="4dp"
@@ -51,7 +51,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btnsecurity"
         android:layout_width="200dp"
         android:layout_height="251dp"
         android:layout_marginEnd="4dp"

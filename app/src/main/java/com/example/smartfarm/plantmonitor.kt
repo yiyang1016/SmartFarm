@@ -26,6 +26,7 @@ class plantmonitor : AppCompatActivity() {
     //private lateinit var mUser : User
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mDatabase: DatabaseReference
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -34,19 +35,32 @@ class plantmonitor : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar!!.title = "Farm Security"
         mDatabase = Firebase.database.reference
-        //fun currentUserPreference(): DatabaseReference =
-        //    mDatabase.child("").child(mAuth.currentUser!!.)
 
+        val closeAlarm = findViewById<Button>(R.id.btnAlarm)
+        closeAlarm.setOnClickListener{
+            var map1 = mutableMapOf<String,Any>()
+            map1["buzzer"] = "0"
+            var map2 = mutableMapOf<String,Any>()
+            map2["led"] = "0"
+            var map3 = mutableMapOf<String,Any>()
+            map3["lcdtext"] = " "
 
-        val button = findViewById<Button>(R.id.btnAlarm)
-        button.setOnClickListener{
-            mDatabase.child("PI_06_CONTROL")
-                .child("buzzer").setValue("0")
-            mDatabase.child("PI_06_CONTROL")
-                .child("led").setValue("0")
-            mDatabase.child("PI_06_CONTROL")
-                .child("lcdtext").setValue("")
+            FirebaseDatabase.getInstance().reference
+                .child("bait2123-202006-06")
+                .child("PI_06_CONTROL")
+                .updateChildren(map1)
+
+            FirebaseDatabase.getInstance().reference
+                .child("bait2123-202006-06")
+                .child("PI_06_CONTROL")
+                .updateChildren(map2)
+
+            FirebaseDatabase.getInstance().reference
+                .child("bait2123-202006-06")
+                .child("PI_06_CONTROL")
+                .updateChildren(map3)
         }
+
         var detectdistance : String = ""
         var convertDistance : Int = detectdistance.toInt()
         val currentDate: String = "PI_06_"+SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(Date())
@@ -70,14 +84,30 @@ class plantmonitor : AppCompatActivity() {
         }
         fun verifyDistance(){
             if(convertDistance < 30.0 ){
-                mDatabase.child("PI_06_CONTROL")
-                    .child("buzzer").setValue("1")
-                mDatabase.child("PI_06_CONTROL")
-                    .child("led").setValue("1")
-                mDatabase.child("PI_06_CONTROL")
-                    .child("lcdtext").setValue("WARNING!!!")
+                var map1 = mutableMapOf<String,Any>()
+                map1["buzzer"] = "1"
+                var map2 = mutableMapOf<String,Any>()
+                map2["led"] = "1"
+                var map3 = mutableMapOf<String,Any>()
+                map3["lcdtext"] = "WARNING!!!"
+
+                FirebaseDatabase.getInstance().reference
+                    .child("bait2123-202006-06")
+                    .child("PI_06_CONTROL")
+                    .updateChildren(map1)
+
+                FirebaseDatabase.getInstance().reference
+                    .child("bait2123-202006-06")
+                    .child("PI_06_CONTROL")
+                    .updateChildren(map2)
+
+                FirebaseDatabase.getInstance().reference
+                    .child("bait2123-202006-06")
+                    .child("PI_06_CONTROL")
+                    .updateChildren(map3)
             }
         }
-        readObserveData()   
+
+        readObserveData()
     }
 }

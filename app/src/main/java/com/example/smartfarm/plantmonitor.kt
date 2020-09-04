@@ -29,6 +29,7 @@ class plantmonitor : AppCompatActivity() {
     private lateinit var mDatabase: DatabaseReference
     private lateinit var  statelistener : ValueEventListener
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -38,104 +39,63 @@ class plantmonitor : AppCompatActivity() {
         actionBar!!.title = "Farm Security"
 
         //local variable declaration
-        var detectdistance : String = ""
-        var convertDistance : Int = detectdistance.toInt()
 
-        var buzzer : String = ""
-        var buzzerStatus : Int = buzzer.toInt()
 
-        val currentDate: String = "PI_06_"+SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(Date())
-        val currentHour : String = SimpleDateFormat("HH",Locale.getDefault()).format(Date())
-        val currentMinuteSecond: String = SimpleDateFormat("mmss", Locale.getDefault()).format(Date())
+        //val currentDate: String = "PI_06_"+SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(Date())
+        //val currentHour : String = SimpleDateFormat("HH",Locale.getDefault()).format(Date())
+        //val currentMinuteSecond: String = SimpleDateFormat("mmss", Locale.getDefault()).format(Date())
 
+        val currentDateTime = LocalDateTime.now()
+        val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd")
+        val hourFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("HH")
+        val minFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("mm")
+        val minSecFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("mmss")
+
+        val dateText = currentDateTime.format(dateFormat)
+        val hourText = currentDateTime.format(hourFormat)
+        val minText = currentDateTime.format(minFormat)
+        val minSecText = currentDateTime.format(minSecFormat).substring(0..2)+0
+        val findDate = "PI_06_"+dateText
         mDatabase = Firebase.database.reference
 
         val closeAlarm = findViewById<Button>(R.id.btnAlarm)
         //close the alarm
+
         fun readData(){
-            statelistener = mDatabase
-                .child("bait2123-202006-06")
-                .child(currentDate)//get year Ex. PI_06_20200904
-                .child(currentHour)//get hour Ex. 01
-                .child(currentMinuteSecond)//get hour Ex. 1010
-                .addValueEventListener(object : ValueEventListener{
-                    override fun onCancelled(error: DatabaseError) {
+            val ref = mDatabase
+                .child(findDate)//get year Ex. PI_06_20200904
+                .child(hourText)//get hour Ex. 01
+                .child(minSecText)//get hour Ex. 1010
+            ref.addValueEventListener(object : ValueEventListener{
+                override fun onCancelled(error: DatabaseError) {
                     }
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        var post = snapshot.value as Map<String,Any>
-                        distance.text = detectdistance
-                        detectdistance = post["ultra2"].toString()
-                        buzzer = post["buzzer"].toString()
-                    }
-                })
+                override fun onDataChange(p0: DataSnapshot) {
+                    distance.text = "Sound = "+p0.child("sound").value.toString()
+                    Ultra2.text = "Ultra 2 = " + p0.child("ultra2").value.toString()
+                    ultra.text = "Date = " + dateText+hourText+minSecText
+
+                    //detectdistance = post["ultra2"].toString()
+                    //buzzer = post["buzzer"].toString()
+                }
+            })
         }
-
-        fun verifyDistance(){
-            if(convertDistance < 30.0 ){
-                var map1 = mutableMapOf<String,Any>()
-                map1["buzzer"] = "1"
-                var map2 = mutableMapOf<String,Any>()
-                map2["led"] = "1"
-
-                FirebaseDatabase.getInstance().reference
-                    .child("bait2123-202006-06")
-                    .child("PI_06_CONTROL")
-                    .updateChildren(map1)
-
-                FirebaseDatabase.getInstance().reference
-                    .child("bait2123-202006-06")
-                    .child("PI_06_CONTROL")
-                    .updateChildren(map2)
-            }
-        }
-
-
         //Button Function
         //Security Status Switch
         swtAlertMode.setOnCheckedChangeListener{
-            buttonView, isChecked ->
+                buttonView, isChecked ->
             if(isChecked) {
                 //Start read data from firebase
                 readData()
-                verifyDistance()
+                //verifyDistance()
             }else{
                 //Stop retrieving data from firebase
                 mDatabase.removeEventListener(statelistener)
-            }
-        }
-
-        //Close Alarm
-        closeAlarm.setOnClickListener{
-            readData()
-            if(buzzerStatus == 0){
-                val text = "Alarm not activate"
-                Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT).show()
-            }else{
-                var map1 = mutableMapOf<String,Any>()
-                map1["buzzer"] = "0"
-                var map2 = mutableMapOf<String,Any>()
-                map2["led"] = "0"
-                var map3 = mutableMapOf<String,Any>()
-                map3["lcdtext"] = " "
-
-                FirebaseDatabase.getInstance().reference
-                    .child("bait2123-202006-06")
-                    .child("PI_06_CONTROL")
-                    .updateChildren(map1)
-
-                FirebaseDatabase.getInstance().reference
-                    .child("bait2123-202006-06")
-                    .child("PI_06_CONTROL")
-                    .updateChildren(map2)
-
-                FirebaseDatabase.getInstance().reference
-                    .child("bait2123-202006-06")
-                    .child("PI_06_CONTROL")
-                    .updateChildren(map3)
-
                 val text = "Alarm Closed Successfully"
                 Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT).show()
+
             }
         }
+
+
     }
 }

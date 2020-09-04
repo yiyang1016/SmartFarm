@@ -14,7 +14,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -49,4 +49,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:12.0.1'
     implementation 'com.google.firebase:firebase-database:12.0.1'
     implementation 'com.google.firebase:firebase-storage:12.0.1'
+    implementation 'com.google.firebase:firebase-inappmessaging-display-ktx:19.1.1'
+    implementation 'com.google.firebase:firebase-inappmessaging-ktx:19.1.1'
+    implementation 'com.android.support:multidex:1.0.3'
 }

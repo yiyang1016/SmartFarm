@@ -100,6 +100,93 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006566804275:android:6ff56cdabdab2a2e4e4c46",
+        "android_client_info": {
+          "package_name": "com.example.smarthome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006566804275-pv7a6f77h25vf6ntkmfen1trc5g9a87p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGUVPiKNynz5R5gbF0S5Nq4dFIGGG0nv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006566804275-pv7a6f77h25vf6ntkmfen1trc5g9a87p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006566804275:android:ba4e15a6f732d4504e4c46",
+        "android_client_info": {
+          "package_name": "com.example.smarthomealarm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006566804275-pv7a6f77h25vf6ntkmfen1trc5g9a87p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGUVPiKNynz5R5gbF0S5Nq4dFIGGG0nv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006566804275-pv7a6f77h25vf6ntkmfen1trc5g9a87p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006566804275:android:73210eb05a6effc04e4c46",
+        "android_client_info": {
+          "package_name": "com.example.smarthometemperaturecontrol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006566804275-pv7a6f77h25vf6ntkmfen1trc5g9a87p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGUVPiKNynz5R5gbF0S5Nq4dFIGGG0nv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006566804275-pv7a6f77h25vf6ntkmfen1trc5g9a87p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

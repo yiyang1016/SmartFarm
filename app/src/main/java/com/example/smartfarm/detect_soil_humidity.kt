@@ -74,7 +74,7 @@ class detect_soil_humidity : AppCompatActivity() {
                             humidityDetect = p0.child("humid").value.toString()
 
                             text.setText(" "+p0.child("humid").value.toString()+"%")
-                            text2.text = "Ultra 2 = " + p0.child("temp").value.toString()
+                            text2.text = " " + p0.child("temp").value.toString() + "C"
                             textDateTime.text = "Date = " + dateText+hourText+minSecText
 
                             if(humidityDetect.toInt()<6){

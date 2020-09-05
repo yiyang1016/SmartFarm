@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/soil"
+    tools:context=".detect_soil_humidity">
+
+    <TextView
+        android:id="@+id/titleName"
+        android:layout_width="293dp"
+        android:layout_height="71dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="59dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Soil Humidity"
+        android:textColor="#FFFFFF"
+        android:textSize="50sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textHumidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="5dp"
+        android:text="Humidity Level:"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/textSoil"
+        app:layout_constraintEnd_toStartOf="@+id/text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textDateTime" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="129dp"
+        android:layout_marginBottom="18dp"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/text2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textHumidity"
+        app:layout_constraintTop_toBottomOf="@+id/textDateTime" />
+
+    <TextView
+        android:id="@+id/textSoil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"
+        android:text="Soil Temperature :"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/textRecommendation"
+        app:layout_constraintEnd_toStartOf="@+id/text2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textHumidity" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="116dp"
+        android:layout_marginBottom="28dp"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/textRecommendation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textSoil"
+        app:layout_constraintTop_toBottomOf="@+id/text" />
+
+    <TextView
+        android:id="@+id/textRecommendation"
+        android:layout_width="271dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="30dp"
+        android:text="Recommendation: "
+        android:textColor="#F6F0F0"
+        app:layout_constraintBottom_toTopOf="@+id/textWater"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textSoil" />
+
+    <RadioGroup
+        android:id="@+id/radGroup1"
+        android:layout_width="144dp"
+        android:layout_height="126dp"
+        android:layout_marginStart="81dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="186dp"
+        android:layout_marginBottom="205dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textWater">
+
+        <RadioButton
+            android:id="@+id/rad1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="5 Minutes"
+            android:textColor="#FFFFFF" />
+
+        <RadioButton
+            android:id="@+id/rad2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="10 Minutes"
+            android:textColor="#FFFFFF" />
+
+        <RadioButton
+            android:id="@+id/rad3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="15 Minutes"
+            android:textColor="#FFFFFF" />
+
+        <RadioButton
+            android:id="@+id/rad4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="20 Minutes"
+            android:textColor="#FFFFFF" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textWater"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="81dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="207dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Watering"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/radGroup1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textRecommendation" />
+
+    <TextView
+        android:id="@+id/textDateTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleName" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

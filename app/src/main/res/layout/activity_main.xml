@@ -14,13 +14,15 @@
         android:layout_height="250dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="152dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="53dp"
+        android:background="#A8292828"
         android:drawableTop="@drawable/temperature"
         android:text="Temperature"
         android:textColor="#ffffff"
-        android:background="#A8292828"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/btnhumidity"
+        app:layout_constraintEnd_toStartOf="@+id/btnwheater"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,45 +30,52 @@
         android:id="@+id/btnwheater"
         android:layout_width="200dp"
         android:layout_height="250dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="152dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="30dp"
+        android:background="#A8292828"
         android:drawableTop="@drawable/wheather"
         android:text="Wheater"
         android:textColor="#ffffff"
-        android:background="#A8292828"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/btnsecurity"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/btntemperature"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.112" />
 
     <Button
         android:id="@+id/btnhumidity"
         android:layout_width="200dp"
         android:layout_height="250dp"
         android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
         android:layout_marginBottom="16dp"
+        android:background="#A8292828"
         android:drawableTop="@drawable/soil"
         android:text="Humidity"
         android:textColor="#ffffff"
-        android:background="#A8292828"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnsecurity"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnsecurity"
         android:layout_width="200dp"
         android:layout_height="251dp"
+        android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="16dp"
+        android:background="#A8292828"
         android:drawableTop="@drawable/security"
         android:text="Security"
         android:textColor="#ffffff"
-        android:background="#A8292828"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnhumidity" />
 
     <TextView
         android:id="@+id/textView2"

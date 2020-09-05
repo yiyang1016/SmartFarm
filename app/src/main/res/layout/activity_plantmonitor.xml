@@ -64,7 +64,7 @@
 
     <ImageView
         android:id="@+id/myImageView"
-        android:
+        android:src="@drawable/anti-intruder1"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_marginStart="32dp"
@@ -86,7 +86,7 @@
 
         android:layout_marginEnd="32dp"
         android:gravity="center"
-        android:text="Last intruder detected on : "
+        android:text="Last intruder detected on : 7days ago "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.553"
         app:layout_constraintStart_toStartOf="parent"

@@ -53,4 +53,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-inappmessaging-display-ktx:19.1.1'
     implementation 'com.google.firebase:firebase-inappmessaging-ktx:19.1.1'
     implementation 'com.android.support:multidex:1.0.3'
+
+    //Display Firebase Storage Image with FirebaseUI
+    implementation 'com.firebaseui:firebase-ui-storage:6.2.0'
+    implementation "com.google.firebase:firebase-storage-ktx:19.2.0"
 }
+apply plugin: 'com.google.gms.google-services'

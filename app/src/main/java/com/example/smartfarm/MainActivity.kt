@@ -17,5 +17,11 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, plantmonitor::class.java)
         startActivity(intent)
         }
+
+        val btntemperature = findViewById<Button>(R.id.btntemperature)
+        btntemperature.setOnClickListener{
+            val intent = Intent(this, detectTemperature::class.java)
+            startActivity(intent)
+        }
     }
 }

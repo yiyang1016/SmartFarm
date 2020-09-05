@@ -1,18 +1,20 @@
 package com.example.smartfarm
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.app.NotificationCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_plantmonitor.*
 import java.text.SimpleDateFormat
 //import com.google.firebase.quickstart.database.databinding.ActivityNewPostBinding
@@ -23,20 +25,14 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
 import kotlin.concurrent.scheduleAtFixedRate
-//import com.google.firebase.referencecode.storage.R
-//import com.google.firebase.storage.ktx.storage
-import android.view.Window
-import android.view.WindowManager
-import android.widget.ImageView
-import androidx.core.content.ContextCompat
-import com.squareup.picasso.Picasso
 
-class plantmonitor : AppCompatActivity() {
+class   plantmonitor : AppCompatActivity() {
+    //private val TAG ="ProfileActivity"
     //private lateinit var mUser : User
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mDatabase: DatabaseReference
     private lateinit var  statelistener : ValueEventListener
-    private lateinit var mDatabase1: DatabaseReference
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -45,13 +41,6 @@ class plantmonitor : AppCompatActivity() {
 
         val actionBar = supportActionBar
         actionBar!!.title = "Farm Security"
-        //set Action Bar Color
-        val window: Window = this@plantmonitor.window
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        window.statusBarColor = ContextCompat.getColor(this@plantmonitor, R.color.actionBarColor)
-
-        val myImageView = findViewById<ImageView>(R.id.myImageView)
 
         //local variable declaration
         var detectdistance : String = ""
@@ -61,42 +50,15 @@ class plantmonitor : AppCompatActivity() {
         mDatabase = Firebase.database.reference
 
         fun verifyDistanceandSound(){
-            if (swtAlertMode.isChecked == true){
-                var convertDistance : Double = detectdistance.toDouble()
-                var convertSound : Int = detectSound.toInt()
-                if(convertDistance < 30.0 || convertSound > 508){
-                    msstxt.text = "Intruder!!!"//508 = 60db(Sound)
-                    msstxt.setTextColor(Color.parseColor("#FF0000"))
-                    msstxt.setTextSize(60F)
-                    //Open buzzer and led
-                    var map1 = mutableMapOf<String,Any>()
-                    map1["buzzer"] = "1"
-                    var map2 = mutableMapOf<String,Any>()
-                    map2["led"] = "1"
-                    var map3 = mutableMapOf<String,Any>()
-                    map2["lcdtext"] = "Intruder Founded"
-
-                    mDatabase.child("PI_06_CONTROL")
-                        .updateChildren(map1)
-                    mDatabase.child("PI_06_CONTROL")
-                        .updateChildren(map2)
-                    mDatabase.child("PI_06_CONTROL")
-                        .updateChildren(map3)
-                    buzzerStatustxt.text = "Buzzer is On"
-
-                    val text = "Alarm Activated"
-                    Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT).show()
-                }else{
-                    msstxt.text = "Still Safe"
-                    msstxt.setTextColor(Color.parseColor("#7CFC00"))
-                    msstxt.setTextSize(60F)
-                }
+            var convertDistance : Double = detectdistance.toDouble()
+            var convertSound : Int = detectSound.toInt()
+            if(convertDistance < 30.0 || convertSound > 508){
+                msstxt.text = "Intruder!!!"//508 = 60db(Sound)
+                msstxt.setTextColor(Color.parseColor("#FF0000"))
             }else{
-                msstxt.text = "Please Open To Secure the Farms"
-                msstxt.setTextColor(Color.parseColor("FF000000"))
-                msstxt.setTextSize(20F)
+                msstxt.text = "Still Safe"
+                msstxt.setTextColor(Color.parseColor("#7CFC00"))
             }
-
         }
 
         //retrieve sensor data
@@ -131,32 +93,45 @@ class plantmonitor : AppCompatActivity() {
                         if(!p0.child("sound").value.toString().isNullOrEmpty()){
                             detectdistance = p0.child("ultra2").value.toString()
                             detectSound = p0.child("sound").value.toString()
-                            
-                            //distance.setText("Sound = "+p0.child("sound").value.toString()+" dB")
-                            //Ultra2.text = "Ultra 2 = " + p0.child("ultra2").value.toString()
-                            //ultra.text = "Date = " + dateText+hourText+minSecText
+
+                            verifyDistanceandSound()
+                            distance.setText("Sound = "+p0.child("sound").value.toString())
+                            Ultra2.text = "Ultra 2 = " + p0.child("ultra2").value.toString()
+                            ultra.text = "Date = " + dateText+hourText+minSecText
                         }
                     }
                 }
             })
         }
 
+
+
         //Button Function
         //Security Status Switch
-        var timer = Timer("schedule", true)
+        val timer = Timer("schedule", true)
         var counter: Int = 0
-
-        timer.scheduleAtFixedRate(1000,1000) {
-            readData()
-            verifyDistanceandSound()
-        }
         swtAlertMode.setOnCheckedChangeListener{
                 buttonView, isChecked ->
             if(isChecked) {
-                val text = "Alarm is On"
-                Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT).show()
+                //Start read data from firebase
+                if(counter == 0){
+                    timer.scheduleAtFixedRate(1000,1000){
+                        readData()
+
+                    }
+
+                }else{
+                    super.onResume()
+                }
+                //verifyDistance()
+                btnAlarm.visibility = View.VISIBLE
             }else{
-                val text = "Alarm Off Successfully"
+                //Stop retrieving data from firebase
+                //timer.cancel()
+                super.onPause()
+                counter == 1
+                //mDatabase.removeEventListener(statelistener)
+                val text = "Alarm Closed Successfully"
                 Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT).show()
             }
         }
@@ -177,7 +152,7 @@ class plantmonitor : AppCompatActivity() {
                     if(p0.exists()){
                         if(!p0.child("buzzer").value.toString().isNullOrEmpty()){
                             buzzerStatus = p0.child("buzzer").value.toString()
-
+                            buzzerStatustxt.text = "Buzzer is on"
                         }
                     }
                 }
@@ -187,19 +162,15 @@ class plantmonitor : AppCompatActivity() {
                 val text = "Alarm not activate"
                 Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT).show()
             }else{
-                //close buzzer and led
                 var map1 = mutableMapOf<String,Any>()
                 map1["buzzer"] = "0"
                 var map2 = mutableMapOf<String,Any>()
                 map2["led"] = "0"
-                var map3 = mutableMapOf<String,Any>()
-                map2["lcdtext"] = ""
+
                 mDatabase.child("PI_06_CONTROL")
                     .updateChildren(map1)
                 mDatabase.child("PI_06_CONTROL")
                     .updateChildren(map2)
-
-                buzzerStatustxt.text = "Buzzer is off"
                 val text = "Alarm Closed Successfully"
                 Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT).show()
             }

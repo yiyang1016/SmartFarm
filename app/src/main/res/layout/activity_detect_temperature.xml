@@ -7,39 +7,68 @@
     tools:context=".detectTemperature">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lblCurrentTem"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="70dp"
+        tools:layout_editor_absoluteY="117dp">
 
         <Button
             android:id="@+id/tembtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="53dp"
-            android:layout_marginTop="255dp"
             android:text="Check Temerature"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:layout_editor_absoluteX="53dp"
+            tools:layout_editor_absoluteY="255dp" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="23dp"
-            android:layout_marginBottom="48dp"
             android:text="Temperature View"
-            app:layout_constraintBottom_toTopOf="@+id/tembtn"
-            app:layout_constraintStart_toStartOf="@+id/tembtn" />
+            tools:layout_editor_absoluteX="73dp"
+            tools:layout_editor_absoluteY="203dp" />
 
         <TextView
             android:id="@+id/titleView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
             android:text="Temperature Module"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:layout_editor_absoluteX="103dp"
+            tools:layout_editor_absoluteY="60dp" />
+
+        <Switch
+            android:id="@+id/temSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="On/Off"
+            tools:layout_editor_absoluteX="286dp"
+            tools:layout_editor_absoluteY="144dp" />
+
+        <TextView
+            android:id="@+id/msstxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="84dp"
+            tools:layout_editor_absoluteY="367dp" />
+
+        <TextView
+            android:id="@+id/txtDate"
+            android:layout_width="142dp"
+            android:layout_height="28dp"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="53dp"
+            tools:layout_editor_absoluteY="110dp" />
+
+        <TextView
+            android:id="@+id/txtSwitchStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Auto Checking Switch"
+            tools:layout_editor_absoluteX="271dp"
+            tools:layout_editor_absoluteY="110dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button

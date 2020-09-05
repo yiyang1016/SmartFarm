@@ -15,7 +15,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="152dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginBottom="53dp"
+        android:layout_marginBottom="40dp"
         android:background="#A8292828"
         android:drawableTop="@drawable/temperature"
         android:text="Temperature"
@@ -33,7 +33,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="152dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="40dp"
         android:background="#A8292828"
         android:drawableTop="@drawable/wheather"
         android:text="Wheater"
@@ -43,7 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btntemperature"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.112" />
+        app:layout_constraintVertical_bias="0.545" />
 
     <Button
         android:id="@+id/btnhumidity"
@@ -53,7 +53,7 @@
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="16dp"
         android:background="#A8292828"
-        android:drawableTop="@drawable/soil"
+        android:drawableTop="@drawable/soilhumidity"
         android:text="Humidity"
         android:textColor="#ffffff"
         android:textSize="20dp"

@@ -36,9 +36,10 @@ class detect_soil_humidity : AppCompatActivity() {
 
         // variable
         var humidityDetect : String = ""
-        var humidityPercentage : Int = humidityDetect.toInt()
+        var temp : String = ""
+        //var humidityPercentage : Int = humidityDetect.toInt()
         var led : String = ""
-        var ledOn : Int = led.toInt()
+        //var ledOn : Int = led.toInt()
 
         val addWater =findViewById<RadioGroup>(radGroup1.id)
 
@@ -72,12 +73,13 @@ class detect_soil_humidity : AppCompatActivity() {
                     if(p0.exists()){
                         if(!p0.child("humid").value.toString().isNullOrEmpty()){
                             humidityDetect = p0.child("humid").value.toString()
+                            temp = p0.child("tempe").value.toString()
 
                             text.setText(" "+p0.child("humid").value.toString()+"%")
-                            text2.text = "Ultra 2 = " + p0.child("temp").value.toString()
+                            text2.text = " " + p0.child("tempe").value.toString()
                             textDateTime.text = "Date = " + dateText+hourText+minSecText
 
-                            if(humidityDetect.toInt()<6){
+                            if(humidityDetect.toDouble()<6){
                                 textRecommendation.text = "Your soil is too try , recommend to ADD WATER into your soil!"}
                                 else{
                                 textRecommendation.text="Your soil is wet and in good form!"
@@ -90,7 +92,7 @@ class detect_soil_humidity : AppCompatActivity() {
             })
         }
 // radiogroup function
-
+        readData()
 
 radGroup1.setOnCheckedChangeListener(
     RadioGroup.OnCheckedChangeListener { group, checkedId ->

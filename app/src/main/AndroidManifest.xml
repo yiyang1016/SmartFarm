@@ -13,6 +13,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".plantmonitor"
             android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".detect_soil_humidity"
+            android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">

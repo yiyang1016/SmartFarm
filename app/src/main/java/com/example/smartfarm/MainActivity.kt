@@ -23,5 +23,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, detectTemperature::class.java)
             startActivity(intent)
         }
+        val btnhumidity = findViewById<Button>(R.id.btnhumidity)
+        btnhumidity.setOnClickListener{
+            val intent = Intent(this, detect_soil_humidity::class.java)
+            startActivity(intent)
+        }
     }
 }

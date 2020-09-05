@@ -95,9 +95,7 @@ class   plantmonitor : AppCompatActivity() {
                             detectSound = p0.child("sound").value.toString()
 
                             verifyDistanceandSound()
-                            distance.setText("Sound = "+p0.child("sound").value.toString())
-                            Ultra2.text = "Ultra 2 = " + p0.child("ultra2").value.toString()
-                            ultra.text = "Date = " + dateText+hourText+minSecText
+
                         }
                     }
                 }

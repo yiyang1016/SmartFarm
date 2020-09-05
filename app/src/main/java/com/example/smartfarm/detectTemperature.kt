@@ -63,7 +63,6 @@ class detectTemperature : AppCompatActivity() {
             getLatestSensorValue()
         }
 
-
     }
 
     private fun executeHandler() {

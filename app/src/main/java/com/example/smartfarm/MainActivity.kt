@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
         }
 
-        val btntemperature = findViewById<Button>(R.id.btnsecurity)
+        val btntemperature = findViewById<Button>(R.id.btntemperature)
         btntemperature.setOnClickListener{
             val intent = Intent(this, detectTemperature::class.java)
             startActivity(intent)

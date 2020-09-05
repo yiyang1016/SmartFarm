@@ -41,38 +41,48 @@ class plantmonitor : AppCompatActivity() {
         actionBar!!.title = "Farm Security"
 
         //local variable declaration
+        var detectdistance : String = ""
+        var convertDistance : Int = detectdistance.toInt()
+        var buzzer : String = ""
+        var buzzerStatus : Int = buzzer.toInt()
+
         val closeAlarm = findViewById<Button>(R.id.btnAlarm)
         //close the alarm
         fun readData(){
+            //Get local Date and Time
             val currentDateTime = LocalDateTime.now()
             val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd")
             val hourFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("HH")
             val minFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("mm")
             val minSecFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("mmss")
 
+            //Change Date Format
             val dateText = currentDateTime.format(dateFormat)
             val hourText = currentDateTime.format(hourFormat)
             val minText = currentDateTime.format(minFormat)
             val minSecText = currentDateTime.format(minSecFormat).substring(0..2)+0
             val findDate = "PI_06_"+dateText
             mDatabase = Firebase.database.reference
-            var count : Int = 0
+
+            //Find Firebases' file location
             val ref = mDatabase
                 .child(findDate)//get year Ex. PI_06_20200904
                 .child(hourText)//get hour Ex. 01
                 .child(minSecText)//get hour Ex. 1010
             ref.addValueEventListener(object : ValueEventListener{
                 override fun onCancelled(error: DatabaseError) {
-
-                    }
+                    val text = "Connection Failed"
+                    Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT).show()
+                }
                 override fun onDataChange(p0: DataSnapshot) {
                     if(p0.exists()){
                         if(!p0.child("sound").value.toString().isNullOrEmpty()){
+                            detectdistance = p0.child("ultra2").value.toString()
+                            
                             distance.setText("Sound = "+p0.child("sound").value.toString())
                             Ultra2.text = "Ultra 2 = " + p0.child("ultra2").value.toString()
                             ultra.text = "Date = " + dateText+hourText+minSecText
-                            count == 0
-                            //detectdistance = post["ultra2"].toString()
+
                             //buzzer = post["buzzer"].toString()
                         }
                     }
@@ -94,8 +104,6 @@ class plantmonitor : AppCompatActivity() {
                         readData()}
                 }else{
                     super.onResume()
-                    //timer.scheduleAtFixedRate(1000,1000){
-                    //    readData()}
                 }
                 //verifyDistance()
             }else{

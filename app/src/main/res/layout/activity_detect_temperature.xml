@@ -20,49 +20,63 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
+            android:layout_marginTop="255dp"
             android:text="Check Temerature"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="255dp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="49dp"
+            android:layout_marginBottom="33dp"
             android:text="Temperature View"
-            tools:layout_editor_absoluteX="73dp"
-            tools:layout_editor_absoluteY="203dp" />
+            app:layout_constraintBottom_toTopOf="@+id/tembtn"
+            app:layout_constraintStart_toStartOf="@+id/tembtn" />
 
         <Switch
             android:id="@+id/temSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
             android:text="On/Off"
-            tools:layout_editor_absoluteX="286dp"
-            tools:layout_editor_absoluteY="144dp" />
+            app:layout_constraintStart_toStartOf="@+id/txtSwitchStatus"
+            app:layout_constraintTop_toBottomOf="@+id/txtSwitchStatus" />
 
         <TextView
             android:id="@+id/msstxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="84dp"
+            android:layout_marginTop="64dp"
             android:text="TextView"
-            tools:layout_editor_absoluteX="84dp"
-            tools:layout_editor_absoluteY="367dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tembtn" />
 
         <TextView
             android:id="@+id/txtDate"
-            android:layout_width="142dp"
-            android:layout_height="28dp"
+            android:layout_width="223dp"
+            android:layout_height="58dp"
+            android:layout_marginStart="53dp"
+            android:layout_marginTop="128dp"
+            android:layout_marginEnd="140dp"
             android:text="TextView"
-            tools:layout_editor_absoluteX="53dp"
-            tools:layout_editor_absoluteY="110dp" />
+            app:layout_constraintEnd_toStartOf="@+id/txtSwitchStatus"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txtSwitchStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="110dp"
+            android:layout_marginEnd="4dp"
             android:text="Auto Checking Switch"
-            tools:layout_editor_absoluteX="271dp"
-            tools:layout_editor_absoluteY="110dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtDate"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView

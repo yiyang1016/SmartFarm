@@ -31,6 +31,7 @@ import android.view.WindowManager
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import com.squareup.picasso.Picasso
+import kotlin.concurrent.schedule
 
 class plantmonitor : AppCompatActivity() {
     //private lateinit var mUser : User
@@ -40,6 +41,7 @@ class plantmonitor : AppCompatActivity() {
     private lateinit var mDatabase1: DatabaseReference
     internal lateinit var img_1 : ImageView
     @RequiresApi(Build.VERSION_CODES.O)
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -52,12 +54,37 @@ class plantmonitor : AppCompatActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         window.statusBarColor = ContextCompat.getColor(this@plantmonitor, R.color.actionBarColor)
+        //Display Picture
+        //val firstImage= "https://thumbs.dreamstime.com/b/anti-intruder-24177968.jpg"
+        //Picasso.get().load(firstImage).into(img_1)
 
         //val myImageView = findViewById<ImageView>(R.id.myImageView)
         img_1 = findViewById<View>(R.id.myImageView) as ImageView
-        val url_1 = "https://firebasestorage.googleapis.com/v0/b/bait2123-202006-06.appspot.com/o/PI_06_CONTROL%2Fcam_20200904235740.jpg?alt=media"
-        Picasso.get().load(url_1).into(img_1)
+        var findDate: String
+        var fullDate: String
+        fun getImage(){
+            val currentDateTime = LocalDateTime.now()
+            val yearMonthFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMM")
+            val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("dd")
+            val hourFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("HH")
+            val minFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("mm")
+            val minSecFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("mmss")
 
+            //Change Date Format
+            val yearMonthText :String = currentDateTime.format(yearMonthFormat)
+            val dateText = currentDateTime.format(dateFormat)
+            val hourText = currentDateTime.format(hourFormat)
+            val minText = currentDateTime.format(minFormat)
+            val minSecText = currentDateTime.format(minSecFormat).substring(0..2)+0
+
+            findDate = yearMonthText+"-"+dateText
+            fullDate = yearMonthText+dateText+hourText+minSecText
+            //imageDate.text = findDate+", "+fullDate
+            //val url_1= "https://firebasestorage.googleapis.com/v0/b/bait2123-202006-06.appspot.com/o/PI_06_CONTROL%2Fcam_20200904235740.jpg?alt=media"
+            val url_1="https://firebasestorage.googleapis.com/v0/b/bait2123-$findDate.appspot.com/o/PI_06_CONTROL%2Fcam_$fullDate.jpg?alt=media"
+            Picasso.get().load(url_1).into(img_1)
+        }
+        //getImage()
         //local variable declaration
         var detectdistance : String = ""
         var detectSound : String = ""
@@ -79,7 +106,11 @@ class plantmonitor : AppCompatActivity() {
                     var map2 = mutableMapOf<String,Any>()
                     map2["led"] = "1"
                     var map3 = mutableMapOf<String,Any>()
-                    map2["lcdtext"] = "Intruder Founded"
+                    map3["lcd"] = "1"
+                    var map4 = mutableMapOf<String,Any>()
+                    map4["lcdtext"] = "Intruder Founded"
+                    var map5 = mutableMapOf<String,Any>()
+                    map5["camera"] = "1"
 
                     mDatabase.child("PI_06_CONTROL")
                         .updateChildren(map1)
@@ -87,7 +118,21 @@ class plantmonitor : AppCompatActivity() {
                         .updateChildren(map2)
                     mDatabase.child("PI_06_CONTROL")
                         .updateChildren(map3)
+                    mDatabase.child("PI_06_CONTROL")
+                        .updateChildren(map4)
+                    mDatabase.child("PI_06_CONTROL")
+                        .updateChildren(map5)
+
                     buzzerStatustxt.text = "Buzzer is On"
+
+
+                    Timer("SettingUp", false).schedule(1000) {
+                        var map6 = mutableMapOf<String,Any>()
+                        map6["camera"] = "0"
+                        mDatabase.child("PI_06_CONTROL")
+                            .updateChildren(map6)
+                            getImage()
+                    }
 
                     val text = "Alarm Activated"
                     Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT).show()
@@ -101,7 +146,6 @@ class plantmonitor : AppCompatActivity() {
                msstxt.setTextColor(Color.parseColor("#808080"))
                 msstxt.setTextSize(20F)
             }
-
         }
 
         //retrieve sensor data
@@ -195,12 +239,17 @@ class plantmonitor : AppCompatActivity() {
                 var map2 = mutableMapOf<String,Any>()
                 map2["led"] = "0"
                 var map3 = mutableMapOf<String,Any>()
+                map2["lcd"] = "0"
+                var map4 = mutableMapOf<String,Any>()
                 map2["lcdtext"] = ""
                 mDatabase.child("PI_06_CONTROL")
                     .updateChildren(map1)
                 mDatabase.child("PI_06_CONTROL")
                     .updateChildren(map2)
-
+                mDatabase.child("PI_06_CONTROL")
+                    .updateChildren(map3)
+                mDatabase.child("PI_06_CONTROL")
+                    .updateChildren(map4)
                 buzzerStatustxt.text = "Buzzer is off"
                 val text = "Alarm Closed Successfully"
                 Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT).show()

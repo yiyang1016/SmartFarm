@@ -11,75 +11,85 @@
         android:id="@+id/swtAlertMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="304dp"
+        android:layout_marginTop="24dp"
         android:switchMinWidth="70dp"
         android:text="Alert Mode"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/msstxt" />
+
 
     <Button
         android:id="@+id/btnAlarm"
         android:layout_width="150dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="124dp"
+        android:layout_marginTop="36dp"
         android:text="Close Alarm"
         android:textColor="#000000"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buzzerStatustxt" />
 
     <TextView
         android:id="@+id/buzzerStatustxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="154dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="44dp"
         android:text="buzzerStatus"
-        app:layout_constraintBottom_toTopOf="@+id/btnAlarm"
         app:layout_constraintEnd_toEndOf="@+id/btnAlarm"
-        app:layout_constraintTop_toBottomOf="@+id/swtAlertMode"
-        app:layout_constraintVertical_bias="0.861" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/swtAlertMode" />
 
     <TextView
         android:id="@+id/msstxt"
         android:layout_width="267dp"
         android:layout_height="81dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="32dp"
         android:gravity="center"
         android:text="Please Open To Secure the Farms"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/swtAlertMode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.936" />
+        app:layout_constraintTop_toBottomOf="@+id/imageDate" />
 
-    <RelativeLayout
-        android:layout_width="329dp"
-        android:layout_height="213dp"
-        app:layout_constraintBottom_toTopOf="@+id/msstxt"
+    <ImageView
+        android:id="@+id/myImageView"
+
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.587"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/myImageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </RelativeLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/imageDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="244dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+
+        android:layout_marginEnd="32dp"
+        android:gravity="center"
         android:text="Last intruder detected on : "
-        tools:layout_editor_absoluteX="123dp"
-        tools:layout_editor_absoluteY="272dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.553"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myImageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

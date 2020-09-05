@@ -34,11 +34,7 @@ import kotlin.concurrent.fixedRateTimer
 import kotlin.concurrent.scheduleAtFixedRate
 
 class detectTemperature : AppCompatActivity() {
-    private var handler: Handler? = null
-    private var runnable: Runnable? = null
-    private val EVERY_TEN_SECOND: Long = 10000
 
-    private val swtOnOff = findViewById<Switch>(R.id.temSwitch)
 
     private var sensorTem: Double = 0.0
     val database = FirebaseDatabase.getInstance()
@@ -52,99 +48,86 @@ class detectTemperature : AppCompatActivity() {
         val actionBar: ActionBar? = supportActionBar
         actionBar!!.title = "Temperature"
 
-        var handler: Handler? = null
-        var runnable: Runnable? = null
+        val swtOnOff = findViewById<Switch>(R.id.temSwitch)
 
-        executeHandler()
-        getLatestSensorValue()
 
-        val tembtn = findViewById<Button>(R.id.tembtn)
-        tembtn.setOnClickListener{
+
+        fun OnBuzzer() {
+            myRef.child("buzzer").setValue("1")
+        }
+
+        fun OffBuzzer() {
+            myRef.child("buzzer").setValue("0")
+        }
+
+        fun verifyTemperature() {
+            if (swtOnOff.isChecked) {
+                if (buzzerStatus) {
+                    if (sensorTem > 39.0) {
+                        msstxt.text = "It's too Hot!!!, Buzzer is on"
+                        OnBuzzer()
+                    } else if (sensorTem < 19.0) {
+                        msstxt.text = "It's too Cold!!!, Buzzer is on"
+                        OnBuzzer()
+                    } else {
+                        msstxt.text = "The condition is good."
+                    }
+                }
+            } else {
+                msstxt.text = "The auto checking system is off."
+                if (buzzerStatus) {
+                    myRef.child("buzzer").setValue("0")
+                }
+            }
+        }
+
+        @RequiresApi(Build.VERSION_CODES.O)
+         fun getLatestSensorValue() { // get and store to global variable sensors.
+            val currentDateTime = LocalDateTime.now().minusSeconds(5)
+            val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd")
+            val hourFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("HH")
+            val minSecFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("mmss")
+            val dateText: String = currentDateTime.format(dateFormatter)
+            val hourText: String = currentDateTime.format(hourFormatter)
+            val minSecText: String = currentDateTime.format(minSecFormatter).substring(0..2) + "0"
+
+            val dbRef = database.reference
+            val lastQuery: Query = dbRef.child("PI_05_$dateText").child(hourText).child(minSecText)
+            lastQuery.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    try {
+                        if (dataSnapshot.exists()) {
+                            if (dataSnapshot.child("tempe").value.toString().isNullOrEmpty()) {
+                                sensorTem =
+                                    (dataSnapshot.child("tempe").value.toString()).toDouble()
+                            }
+                            buzzerStatus = dataSnapshot.child("buzzer").value == 1
+                        }
+                        textView.text = dataSnapshot.child("tempe").value.toString() + " °C"
+                        txtDate.text = "Date = " + dateText + hourText + minSecText
+                        verifyTemperature()
+                    } catch (e: Exception) {
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle possible errors.
+                    Toast.makeText(applicationContext, "ERROR MTFK", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+        //executeHandler()
+        var timer = Timer("schedule", true)
+        timer.scheduleAtFixedRate(1000, 1000) {
             getLatestSensorValue()
         }
 
-    }
-
-    private fun executeHandler() {
-        //If the handler and runnable are null we create it the first time.
-        if (handler == null && runnable == null) {
-            handler = Handler()
-            runnable = object : Runnable {
-                @RequiresApi(Build.VERSION_CODES.O)
-                override fun run() {
-                    //Updating firebase store/getting
-                    getLatestSensorValue()
-                    //And we execute it again
-                    handler!!.postDelayed(this, EVERY_TEN_SECOND)
-                }
-            }
-        } else {
-            handler?.postDelayed(runnable, EVERY_TEN_SECOND)
+        val tembtn = findViewById<Button>(R.id.tembtn)
+        tembtn.setOnClickListener {
+            getLatestSensorValue()
         }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun getLatestSensorValue() { // get and store to global variable sensors.
-        val currentDateTime = LocalDateTime.now().minusSeconds(5)
-        val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd")
-        val hourFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("HH")
-        val minSecFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("mmss")
-        val dateText: String = currentDateTime.format(dateFormatter)
-        val hourText: String = currentDateTime.format(hourFormatter)
-        val minSecText: String = currentDateTime.format(minSecFormatter).substring(0..2) + "0"
-
-        val dbRef = database.reference
-        val lastQuery: Query = dbRef.child("PI_05_$dateText").child(hourText).child(minSecText)
-        lastQuery.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                try {
-                    if (dataSnapshot.exists()) {
-                        if (dataSnapshot.child("tempe").value.toString().isNullOrEmpty()) {
-                            sensorTem = (dataSnapshot.child("tempe").value.toString()).toDouble()
-                        }
-                        buzzerStatus = dataSnapshot.child("buzzer").value == 1
-                    }
-                    textView.text = dataSnapshot.child("tempe").value.toString() + " °C"
-                    txtDate.text = "Date = " + dateText + hourText + minSecText
-                    verifyTemperature()
-                } catch (e: Exception) {
-                }
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // Handle possible errors.
-                Toast.makeText(applicationContext, "ERROR MTFK", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-
-    private fun OnBuzzer(){
-        myRef.child("buzzer").setValue("1")
-    }
-
-    private fun OffBuzzer(){
-        myRef.child("buzzer").setValue("0")
-    }
 
 
-    private fun verifyTemperature() {
-        if (swtOnOff.isChecked) {
-            if(buzzerStatus) {
-                if (sensorTem > 39.0) {
-                    msstxt.text = "It's too Hot!!!, Buzzer is on"
-                    OnBuzzer()
-                } else if (sensorTem < 19.0) {
-                    msstxt.text = "It's too Cold!!!, Buzzer is on"
-                    OnBuzzer()
-                } else {
-                    msstxt.text = "The condition is good."
-                }
-            }
-        } else {
-            msstxt.text = "The auto checking system is off."
-            if(buzzerStatus) {
-                myRef.child("buzzer").setValue("0")
-            }
-        }
+
     }
 }

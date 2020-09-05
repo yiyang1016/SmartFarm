@@ -7,14 +7,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.ActionBar
 import androidx.core.app.NotificationCompat
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_plantmonitor.*
 import java.text.SimpleDateFormat
 //import com.google.firebase.quickstart.database.databinding.ActivityNewPostBinding
@@ -25,14 +29,15 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
 import kotlin.concurrent.scheduleAtFixedRate
+//import com.google.firebase.referencecode.storage.R
+import com.google.firebase.storage.ktx.storage
 
 class plantmonitor : AppCompatActivity() {
-    //private val TAG ="ProfileActivity"
     //private lateinit var mUser : User
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mDatabase: DatabaseReference
     private lateinit var  statelistener : ValueEventListener
-
+    private lateinit var mDatabase1: DatabaseReference
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -41,7 +46,6 @@ class plantmonitor : AppCompatActivity() {
 
         val actionBar = supportActionBar
         actionBar!!.title = "Farm Security"
-
         //local variable declaration
         var detectdistance : String = ""
         var detectSound : String = ""
@@ -103,11 +107,24 @@ class plantmonitor : AppCompatActivity() {
                 }
             })
         }
+        //get intruder image from firebase
+        fun getIntruderImage(){
+            // Reference to an image file in Cloud Storage
+            val storageReference = Firebase.storage.reference.child("PI_06_CONTROL/")
 
+            // ImageView in your Activity
+            val imageView = findViewById<ImageView>(R.id.intruderPhoto)
 
+            // Download directly from StorageReference using Glide
+            // (See MyAppGlideModule for Loader registration)
+            Glide.with(this /* context */)
+                .load(storageReference)
+                .into(imageView)
+        }
 
         //Button Function
         //Security Status Switch
+        getIntruderImage()
         val timer = Timer("schedule", true)
         var counter: Int = 0
         swtAlertMode.setOnCheckedChangeListener{
@@ -117,19 +134,16 @@ class plantmonitor : AppCompatActivity() {
                 if(counter == 0){
                     timer.scheduleAtFixedRate(1000,1000){
                         readData()
-
                     }
-
                 }else{
                     super.onResume()
                 }
-                //verifyDistance()
-                btnAlarm.visibility = View.VISIBLE
             }else{
                 //Stop retrieving data from firebase
                 //timer.cancel()
                 super.onPause()
                 counter == 1
+
                 //mDatabase.removeEventListener(statelistener)
                 val text = "Alarm Closed Successfully"
                 Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT).show()
@@ -152,13 +166,14 @@ class plantmonitor : AppCompatActivity() {
                     if(p0.exists()){
                         if(!p0.child("buzzer").value.toString().isNullOrEmpty()){
                             buzzerStatus = p0.child("buzzer").value.toString()
-                            buzzerStatustxt.text = "Buzzer is on"
+
                         }
                     }
                 }
             })
             //verify buzzer status
             if(buzzerStatus.equals("0")){
+
                 val text = "Alarm not activate"
                 Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT).show()
             }else{
@@ -171,6 +186,7 @@ class plantmonitor : AppCompatActivity() {
                     .updateChildren(map1)
                 mDatabase.child("PI_06_CONTROL")
                     .updateChildren(map2)
+                buzzerStatustxt.text = "Buzzer is off"
                 val text = "Alarm Closed Successfully"
                 Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT).show()
             }

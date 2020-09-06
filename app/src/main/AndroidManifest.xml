@@ -26,6 +26,9 @@
             android:name=".detectTemperature"
             android:parentActivityName=".MainActivity" />
         <activity
+            android:name=".checkweather"
+            android:parentActivityName=".MainActivity"/>
+        <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>

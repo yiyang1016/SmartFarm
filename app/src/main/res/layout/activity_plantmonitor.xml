@@ -65,7 +65,7 @@
 
     <ImageView
         android:id="@+id/myImageView"
-        android:src="@drawable/antiintruder1"
+        android:src="@drawable/anti_intruder_24177968"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_marginStart="32dp"

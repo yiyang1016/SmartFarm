@@ -54,9 +54,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-inappmessaging-display-ktx:19.1.1'
     implementation 'com.google.firebase:firebase-inappmessaging-ktx:19.1.1'
     implementation 'com.android.support:multidex:1.0.3'
-
+    //noinspection GradleCompatible
+    implementation "com.android.support:support-compat:28.0.0"
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
-
+    implementation "org.jetbrains.anko:anko:0.10.4"
     compile 'com.android.support:design:23.1.1'
 }

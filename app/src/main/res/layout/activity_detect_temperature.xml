@@ -12,81 +12,102 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <Button
             android:id="@+id/tembtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="255dp"
-            android:text="Check Temerature"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginBottom="37dp"
+            android:text="Update Temerature"
+            app:layout_constraintBottom_toTopOf="@+id/msstxt"
+            app:layout_constraintStart_toStartOf="@+id/msstxt"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="49dp"
-            android:layout_marginBottom="33dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="76dp"
+            android:layout_marginEnd="76dp"
+            android:layout_marginBottom="64dp"
+            android:gravity="center"
             android:text="Temperature View"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@+id/tembtn"
-            app:layout_constraintStart_toStartOf="@+id/tembtn" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/temSwitch" />
 
         <Switch
             android:id="@+id/temSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginEnd="43dp"
+            android:layout_marginBottom="74dp"
             android:text="On/Off"
-            app:layout_constraintStart_toStartOf="@+id/txtSwitchStatus"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtDate"
             app:layout_constraintTop_toBottomOf="@+id/txtSwitchStatus" />
 
         <TextView
             android:id="@+id/msstxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="84dp"
-            android:layout_marginTop="64dp"
+            android:layout_width="171dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="148dp"
+            android:foregroundGravity="center"
             android:text="TextView"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tembtn" />
 
         <TextView
             android:id="@+id/txtDate"
-            android:layout_width="223dp"
-            android:layout_height="58dp"
-            android:layout_marginStart="53dp"
-            android:layout_marginTop="128dp"
-            android:layout_marginEnd="140dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="65dp"
+            android:layout_marginBottom="563dp"
             android:text="TextView"
-            app:layout_constraintEnd_toStartOf="@+id/txtSwitchStatus"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/temSwitch"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/titleView2" />
 
         <TextView
             android:id="@+id/txtSwitchStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="110dp"
-            android:layout_marginEnd="4dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginBottom="7dp"
             android:text="Auto Checking Switch"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBottom_toTopOf="@+id/temSwitch"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txtDate"
+            app:layout_constraintTop_toBottomOf="@+id/titleView2" />
+
+        <TextView
+            android:id="@+id/titleView2"
+            android:layout_width="222dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="27dp"
+            android:foregroundGravity="center_vertical|center"
+            android:text="Temperature Module"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBottom_toTopOf="@+id/txtDate"
+            app:layout_constraintEnd_toStartOf="@+id/txtSwitchStatus"
+            app:layout_constraintStart_toStartOf="@+id/txtSwitchStatus"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/titleView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="Temperature Module"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

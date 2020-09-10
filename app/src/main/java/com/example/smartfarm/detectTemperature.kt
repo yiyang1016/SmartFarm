@@ -137,7 +137,7 @@ class detectTemperature : AppCompatActivity() {
                             detecttem = p0.child("tempe").value.toString()
 
                             textView.text = p0.child("tempe").value.toString()+" °C"
-                            txtDate.text = hourText + ":" +minSecText
+                            txtDate.text = hourText + ":" +minText
                         }
                         verifyTemperature()
                     }

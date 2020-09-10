@@ -178,6 +178,7 @@ class plantmonitor : AppCompatActivity() {
                         counter +1
                         val text = "Alarm Activated"
                         Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT).show()
+                        super.onStop()
                     }
                 }else{
                     msstxt.text = "Still Safe"

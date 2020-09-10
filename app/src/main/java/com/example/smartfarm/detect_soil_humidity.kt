@@ -16,6 +16,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_detect_soil_humidity.*
+import org.jetbrains.anko.radioGroup
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -36,10 +37,10 @@ class detect_soil_humidity : AppCompatActivity() {
 
         // variable
         var humidityDetect : String = ""
-        var humidityPercentage : Int = humidityDetect.toInt()
+        //var humidityPercentage : Int = humidityDetect.toInt()
         var led : String = ""
-        var ledOn : Int = led.toInt()
-
+        //var ledOn : Int = led.toInt()
+        var tempDetect : String = ""
         val addWater =findViewById<RadioGroup>(radGroup1.id)
 
         fun readData(){
@@ -72,12 +73,12 @@ class detect_soil_humidity : AppCompatActivity() {
                     if(p0.exists()){
                         if(!p0.child("humid").value.toString().isNullOrEmpty()){
                             humidityDetect = p0.child("humid").value.toString()
-
+                            tempDetect = p0.child("tempe").value.toString()
                             text.setText(" "+p0.child("humid").value.toString()+"%")
-                            text2.text = " " + p0.child("temp").value.toString() + "C"
-                            textDateTime.text = "Date : " + dateText+ " "+ " Time :"+hourText+minSecText
+                            text2.text = " " + p0.child("tempe").value.toString() + "C"
+                            textDateTime.text = "Date : " + dateText+hourText+minSecText
 
-                            if(humidityDetect.toInt()<6){
+                            if(humidityDetect.toDouble()<6){
                                 textRecommendation.text = "Your soil is too try , recommend to ADD WATER into your soil!"}
                                 else{
                                 textRecommendation.text="Your soil is wet and in good form!"
@@ -91,7 +92,7 @@ class detect_soil_humidity : AppCompatActivity() {
         }
 // radiogroup function
 
-
+readData()
 radGroup1.setOnCheckedChangeListener(
     RadioGroup.OnCheckedChangeListener { group, checkedId ->
         var radio1: String = "rad1"
@@ -100,94 +101,34 @@ radGroup1.setOnCheckedChangeListener(
         var radio4: String = "rad4"
 
         val radio : RadioButton = findViewById(checkedId )
-       Toast.makeText(applicationContext,"Watering for :${radio.text}",
-       Toast.LENGTH_SHORT ).show()
 
-        if(radio.id.equals( radio1 ) ){
-
-            var map2 = mutableMapOf<String,Any>()
-
-            object : CountDownTimer(300000, 1000) {
-                override fun onTick(millisUntilFinished: Long) {
-
-                    map2["led"] = "1"
+        Toast.makeText(applicationContext,"Watering for :${radio.text}",
+            Toast.LENGTH_SHORT ).show()
+        if(rad1.isChecked==true){
+            //var map2 = mutableMapOf<String,Any>()
+            var map1 = mutableMapOf<String,Any>()
+                    map1["led"] = "1"
                     mDatabase.child("PI_06_CONTROL")
-                        .updateChildren(map2)
-                }
-
-                override fun onFinish() {
-                    Toast.makeText(applicationContext,"Watering done",
-                        Toast.LENGTH_SHORT ).show()
-
-                    map2["led"] = "0"
-                    mDatabase.child("PI_06_CONTROL")
-                        .updateChildren(map2)
-                }
-            }.start()
-
+                        .updateChildren(map1)
         }
-        if(radio.id.equals( radio2 ) ){
+        if(rad2.isChecked==true ){
             var map2 = mutableMapOf<String,Any>()
-
-            object : CountDownTimer(600000, 1000) {
-                override fun onTick(millisUntilFinished: Long) {
-
                     map2["led"] = "1"
                     mDatabase.child("PI_06_CONTROL")
                         .updateChildren(map2)
-                }
-
-                override fun onFinish() {
-                    Toast.makeText(applicationContext,"Watering done",
-                        Toast.LENGTH_SHORT ).show()
-
-                    map2["led"] = "0"
-                    mDatabase.child("PI_06_CONTROL")
-                        .updateChildren(map2)
-                }
-            }.start()
         }
-        if(radio.id.equals( radio3 ) ){
+        if(rad3.isChecked==true){
             var map2 = mutableMapOf<String,Any>()
-
-            object : CountDownTimer(900000, 1000) {
-                override fun onTick(millisUntilFinished: Long) {
-
                     map2["led"] = "1"
                     mDatabase.child("PI_06_CONTROL")
                         .updateChildren(map2)
-                }
-
-                override fun onFinish() {
-                    Toast.makeText(applicationContext,"Watering done",
-                        Toast.LENGTH_SHORT ).show()
-
-                    map2["led"] = "0"
-                    mDatabase.child("PI_06_CONTROL")
-                        .updateChildren(map2)
-                }
-            }.start()
         }
-        if(radio.id.equals( radio4 ) ){
+        if(rad4.isChecked==true ){
             var map2 = mutableMapOf<String,Any>()
-
-            object : CountDownTimer(1200000, 1000) {
-                override fun onTick(millisUntilFinished: Long) {
-
                     map2["led"] = "1"
                     mDatabase.child("PI_06_CONTROL")
                         .updateChildren(map2)
-                }
 
-                override fun onFinish() {
-                    Toast.makeText(applicationContext,"Watering done",
-                        Toast.LENGTH_SHORT ).show()
-
-                    map2["led"] = "0"
-                    mDatabase.child("PI_06_CONTROL")
-                        .updateChildren(map2)
-                }
-            }.start()
         }
 
     }
